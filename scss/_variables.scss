@@ -1,0 +1,51 @@
+$color-white:  #fff;
+$color-black:  #333;
+$color-grey10: rgba($color-black, .1);
+$color-grey25: rgba($color-black, .25);
+
+$primary-color:   #a73814;
+//$primary-color:   #333;
+$secondary-color: #3ba714;
+$text-color:      $color-black;
+$link-color:      $secondary-color;
+
+$border-color:    $text-color;
+$border-width:    2px;
+$border:          $border-width solid $border-color;
+
+$heading-font:  "Amatic SC";
+$secondary-font: open-sans, sans-serif;
+$serif-font:     courier, serif;
+
+@font-face {
+	font-family: "Amatic SC";
+	font-style: normal;
+	font-weight: 400;
+	src: local("Amatic SC"), local("Amatic SC"), url(../resources/fonts/AmaticSC-Regular.ttf) format('truetype');
+}
+
+@mixin button {
+	display: inline-block;
+	padding: 1rem;
+	border: none;
+	color: $color-white;
+	background-color: $primary-color;
+	text-align: center;
+	&:hover {
+		opacity: 0.9;
+	}
+	a {
+		color: $color-white;
+	}
+}
+
+@mixin menu-link {
+	display: inline-block;
+	padding: .5rem 1rem;
+	font-weight: 500;
+	&:hover {
+		text-decoration: underline;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 4px;
+	}
+}

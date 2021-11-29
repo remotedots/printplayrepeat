@@ -1,0 +1,308 @@
+@import "variables";
+
+
+/**
+ * ========================== CSS Reset rules
+ */
+
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+a[href], input[type='submit'], input[type='image'], label[for], select, button {
+	cursor: pointer;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+
+/**
+ * ========================== General rules
+ */
+
+
+html {
+	color: $text-color;
+	font-family: $secondary-font;
+}
+
+body {
+	margin: 0;
+	word-wrap: break-word;
+}
+
+a {
+	color: $link-color;
+	text-decoration: none;
+}
+
+blockquote {
+	padding: 0 2rem 0 4rem;
+	position: relative;
+	font-family: $serif-font;
+	font-style: italic;
+	&:before {
+		content: "\201C";
+		position: absolute;
+		top: -.5rem;
+		left: 0;
+		height: 5rem;
+		color: rgba($text-color, 0.5);
+		font-size: 5rem;
+	}
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: $heading-font;
+	line-height: normal;
+}
+
+h1, h2, h3 {
+	margin: 2rem 0;
+	font-family: $heading-font;
+}
+
+h1 { font-size: 3rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.8rem; }
+
+input {
+	padding: 5px;
+	border: 1px solid $color-grey25;
+	border-radius: none;
+}
+
+p {}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	thead {
+		text-align: left;
+	}
+	th, td {
+		padding: 1rem;
+		border-top: 1px solid $text-color;
+		border-bottom: 1px solid $text-color;
+	}
+}
+
+ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+
+/**
+ * ========================== Regions
+ */
+
+
+.page-header {
+	text-align: center;
+	.site-branding {
+		a {
+			color: currentColor;
+			&:active {
+				color: $primary-color;
+			}
+			h1 {
+				margin-bottom: 0;
+				font-size: 4rem;
+			}
+		}
+		.site-description {
+			margin-top: 0;
+		}
+		margin-bottom: 2rem;
+	}
+	.main-nav {
+		.menu-wrapper {
+			.menu-item {
+				display: inline-block;
+				a {
+					display: inline-block;
+					padding: .5rem 2rem;
+					color: $primary-color;
+					font-weight: 500;
+					&:hover {
+						color: $color-white;
+						background-color: $primary-color;
+					}
+				}
+			}
+		}
+	}
+	.secondary-nav {
+		.menu-wrapper {
+				max-width: 1200px;
+				margin: 0 auto;
+				text-align: right;
+				.menu-item {
+					display: inline-block;
+					a {
+						color: $primary-color;
+						@include menu-link;
+					}
+				}
+		}
+	}
+}
+
+.site-content {
+	max-width: 1200px;
+	margin: 2rem auto;
+	@media (max-width: 1199.98px) {
+		margin: 2rem;
+	}
+}
+
+.page-footer {
+	padding: 4rem 0;
+	background-color: $secondary-color;
+	.content-wrapper {
+		max-width: 1200px;
+		margin: 0 auto;
+		@media (max-width: 1199.98px) {
+			margin: 0 2rem;
+		}
+		display: flex;
+		.site-branding {
+			flex: 2;
+			a {
+				color: $color-white;
+				h1 {
+					margin: 0;
+				}
+			}
+		}
+		.menu-main-menu-container,
+		.menu-footer-menu-container {
+			flex: 1 1 1;
+			min-width: 20%;
+			.menu {
+				margin-top: .4rem; // align it nicely with the logo
+				.menu-item {
+					a {
+						color: $color-white;
+						@include menu-link;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+/**
+ * ========================== Page
+ */
+
+
+.page {
+	.entry-header {
+		margin: 2rem 0;
+	}
+	.entry-content {
+		margin: 2rem 0;
+		p {
+			hyphens: auto;
+			a:hover {
+				text-decoration: underline;
+				text-decoration-thickness: 2px;
+				text-underline-offset: 4px;
+			}
+		}
+		> *:not(.woocommerce) {
+			margin: 0 8rem 1rem;
+			&:last-child {
+				margin-bottom: 2rem;
+			}
+		}
+	}
+	.entry-footer {
+		margin: 2rem 0 4rem;
+	}
+	&.product {
+		.entry-header {
+			margin: 2rem 0;
+		}
+	}
+}
+
+
+/**
+ * ========================== Components
+ */
+
+
+// General style for buttons
+.button {
+	@include button;
+}
+
+// Language switcher
+.trp-language-switcher-container {}
+
+// Product filter
+.wpfMainWrapper {
+	width: auto !important;
+	margin: 2rem 8rem;
+	.wpfFilterWrapper {
+		width: auto !important;
+		margin: 0;
+		padding: 0;
+		.wpfFilterTitle {
+			cursor: auto;
+			.wfpClickable {
+				cursor: auto;
+			}
+		}
+		.wpfFilterContent {
+			ul.wpfFilterVerScroll {
+				li {
+					margin-right: 2rem;
+					display: inline-block;
+					label {
+						display: inline-block;
+						.wpfCheckbox {}
+						.wpfDisplay {
+							.wpfValue {
+								padding: 0;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	.wpfFilterButtons {
+		display: inline-block;
+	}
+}
