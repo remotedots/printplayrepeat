@@ -1,7 +1,7 @@
 <footer class="page-footer">
 	<div class="content-wrapper">
 		<div class="site-branding">
-			<a href="/"><h1><?php echo get_bloginfo( 'name' ); ?></h1></a>
+			<a href="/"><?php echo get_bloginfo( 'name' ); ?></a>
 		</div><!-- .site-branding -->
 		<?php
 			wp_nav_menu( array(

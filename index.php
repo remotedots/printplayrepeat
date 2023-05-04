@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
 <?php if ( is_home() ) : ?>
-	<?php woocommerce_content(); ?>
+	<?php // woocommerce_content(); ?>
 <?php endif; ?>
 
 <?php if ( is_home() && ! is_front_page() && ! empty( single_post_title( '', false ) ) ) : ?>
@@ -15,6 +15,10 @@ if ( have_posts() ) {
 		the_post();
 		get_template_part( 'components/content' );
 	}
+
+	if ( is_single() )
+		get_related_posts();
+
 	// Previous/next page navigation.
 	// twenty_twenty_one_the_posts_navigation();
 

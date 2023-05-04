@@ -28,7 +28,7 @@ $show_title       = ( true === get_theme_mod( 'display_title_and_tagline', true 
 	</nav>
 	<div class="site-branding">
 		<?php if ( $blog_name && $show_title ) : ?>
-			<a href="/" title="<?php echo $blog_name; ?>"><h1><?php echo $blog_name; ?></h1></a>
+			<a href="/" title="<?php echo $blog_name; ?>"><?php echo $blog_name; ?></a>
 		<?php endif; ?>
 
 		<?php if ( $blog_description && $show_title ) : ?>

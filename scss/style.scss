@@ -1,6 +1,5 @@
 @import "variables";
 
-
 /**
  * ========================== CSS Reset rules
  */
@@ -19,6 +18,8 @@ html, body {
 }
 
 body {
+	font-family: $body-font;
+	font-size: 1.25rem;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
@@ -26,6 +27,7 @@ body {
 img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
+	height: auto;
 }
 
 input, button, textarea, select {
@@ -48,7 +50,7 @@ p, h1, h2, h3, h4, h5, h6 {
 
 html {
 	color: $text-color;
-	font-family: $secondary-font;
+	font-family: $body-font;
 }
 
 body {
@@ -83,13 +85,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1, h2, h3 {
-	margin: 2rem 0;
-	font-family: $heading-font;
+	margin: 2.2rem 0 0;
+	color: $link-color;
 }
 
-h1 { font-size: 3rem; }
+h1 {
+	font-size: 3rem;
+	line-height: 1;
+}
+
 h2 { font-size: 2rem; }
-h3 { font-size: 1.8rem; }
+h3 { font-size: 1.25rem; }
 
 input {
 	padding: 5px;
@@ -118,7 +124,6 @@ ul {
 	list-style: none;
 }
 
-
 /**
  * ========================== Regions
  */
@@ -126,57 +131,71 @@ ul {
 
 .page-header {
 	text-align: center;
-	.site-branding {
-		a {
-			color: currentColor;
-			&:active {
-				color: $primary-color;
-			}
-			h1 {
-				margin-bottom: 0;
-				font-size: 4rem;
-			}
+}
+
+.site-branding {
+	font-family: $logo-font;
+	font-weight: 700;
+	font-size: 5rem;
+	a {
+		color: currentColor;
+		&:active {
+			color: $primary-color;
 		}
-		.site-description {
-			margin-top: 0;
+		h1 {
+			margin-bottom: 0;
+			font-size: 4rem;
 		}
-		margin-bottom: 2rem;
 	}
-	.main-nav {
-		.menu-wrapper {
-			.menu-item {
+	.site-description {
+		margin-top: 0;
+		font-size: 2.2rem;
+		fontr-weight: 400;
+	}
+	margin-bottom: 2rem;
+}
+
+.main-nav {
+	margin: 2rem 0 6rem;
+	border-top: 1px solid $color-black;
+	border-bottom: 1px solid $color-black;
+	.menu-wrapper {
+		.menu-item {
+			display: inline-block;
+			font-family: $menu-font;
+			a {
 				display: inline-block;
-				a {
-					display: inline-block;
-					padding: .5rem 2rem;
-					color: $primary-color;
-					font-weight: 500;
-					&:hover {
-						color: $color-white;
-						background-color: $primary-color;
-					}
+				padding: .5rem 2rem;
+				color: $color-black;
+				font-weight: 500;
+				&:hover {
+					color: $color-white;
+					background-color: $primary-color;
 				}
 			}
-		}
-	}
-	.secondary-nav {
-		.menu-wrapper {
-				max-width: 1200px;
-				margin: 0 auto;
-				text-align: right;
-				.menu-item {
-					display: inline-block;
-					a {
-						color: $primary-color;
-						@include menu-link;
-					}
-				}
 		}
 	}
 }
 
+.secondary-nav {
+	.menu-wrapper {
+			max-width: 1200px;
+			margin: 0 auto;
+			font-family: $menu-font;
+			text-transform: uppercase;
+			text-align: right;
+			.menu-item {
+				display: inline-block;
+				a {
+					color: $primary-color;
+					@include menu-link;
+				}
+			}
+	}
+}
+
 .site-content {
-	max-width: 1200px;
+	max-width: 900px;
 	margin: 2rem auto;
 	@media (max-width: 1199.98px) {
 		margin: 2rem;
@@ -197,9 +216,7 @@ ul {
 			flex: 2;
 			a {
 				color: $color-white;
-				h1 {
-					margin: 0;
-				}
+				font-size: 2.8rem;
 			}
 		}
 		.menu-main-menu-container,
@@ -225,13 +242,18 @@ ul {
  */
 
 
-.page {
+.page, .post {
 	.entry-header {
-		margin: 2rem 0;
+		margin: 0;
+		line-height: 1;
+		.entry-title {
+			margin-bottom: 1rem;
+		}
 	}
 	.entry-content {
-		margin: 2rem 0;
+		margin: 0 0 2rem 0;
 		p {
+			margin-bottom: .8rem;
 			hyphens: auto;
 			a:hover {
 				text-decoration: underline;
@@ -239,15 +261,23 @@ ul {
 				text-underline-offset: 4px;
 			}
 		}
+		.excerpt {
+			font-weight: 600;
+			margin-bottom: 1.5rem;
+		}
 		> *:not(.woocommerce) {
-			margin: 0 8rem 1rem;
 			&:last-child {
 				margin-bottom: 2rem;
 			}
 		}
+		a.read-more {
+			display: block;
+			margin-top: 1rem;
+		}
 	}
 	.entry-footer {
 		margin: 2rem 0 4rem;
+		font-size: .8em;
 	}
 	&.product {
 		.entry-header {
@@ -269,6 +299,9 @@ ul {
 
 // Language switcher
 .trp-language-switcher-container {}
+
+
+
 
 // Product filter
 .wpfMainWrapper {
@@ -304,5 +337,28 @@ ul {
 	}
 	.wpfFilterButtons {
 		display: inline-block;
+	}
+}
+
+.related-posts {
+	h2 {
+		margin-bottom: 32px;
+	}
+	.post {
+		max-width: 30%;
+		background: $color-grey10;
+		.entry-header {
+			> *:not(.post-thumbnail) {
+				padding: 8px;
+			}
+			h1 {
+				font-size: 2rem;
+			}
+		}
+		.entry-content,
+		.entry-footer {
+			padding: 8px;
+			font-size: 1rem;
+		}
 	}
 }

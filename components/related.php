@@ -1,3 +1,9 @@
+<!--div class="relatedthumb">
+	<a rel="nofollow" target="_blank" href="<? the_permalink()?>"><?php the_post_thumbnail(array(150,100)); ?><br />
+	<?php the_title(); ?>
+	</a>
+</div-->
+
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
 
@@ -13,11 +19,11 @@
 	</header><!-- .entry-header -->
 
 	<div class="entry-content">
-		<?php	the_content(); ?>
+		<?php	the_excerpt(); ?>
 	</div><!-- .entry-content -->
 
-	<footer class="entry-footer">
+	<!--footer class="entry-footer">
 		<?php ppr_entry_meta_footer(); ?>
-	</footer><!-- .entry-footer -->
+	</footer--><!-- .entry-footer -->
 
 </article><!-- #post-<?php the_ID(); ?> -->
