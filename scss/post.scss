@@ -1,0 +1,65 @@
+@import "variables";
+@import "mixins";
+
+body.page:not(.woocommerce-page) .site-content,
+body.single .site-content {
+	.post,
+	.page {
+		max-width: 72ch;
+		margin: auto;
+	}
+	.entry-header {
+		.post-thumbnail {
+			margin: 0 calc((1200px - 72ch - 4px) / -2) 0;
+		}
+	}
+	.entry-content {
+		h2,
+		h3,
+		h4 {
+			@media (max-width: 640px) {
+				hyphens: auto;
+			}
+		}
+		p,
+		ul {
+			margin-bottom: 0.5em;
+			hyphens: auto;
+			a {
+				&:hover {
+					@include link-hover;
+				}
+			}
+		}
+		li {
+			list-style: disc;
+			margin-left: 2ch;
+		}
+		figure {
+			margin: 2rem calc(min(calc((min(100vw, 1200px) - 72ch - 4px) / -2), -24px));
+			img {
+				width: calc(100% + 48px);
+				height: auto;
+			}
+			figcaption {
+				margin: 0.5rem;
+				font-size: 0.9rem;
+			}
+		}
+		.excerpt {
+		}
+		> *:not(.woocommerce) {
+			&:last-child {
+				margin-bottom: 2rem;
+			}
+		}
+		a.read-more {
+			display: block;
+			margin-top: 1rem;
+		}
+	}
+	.entry-footer:not(:empty) {
+		margin: 2rem 0 4rem;
+		font-size: 0.9rem;
+	}
+}

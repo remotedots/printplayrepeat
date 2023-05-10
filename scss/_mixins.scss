@@ -1,0 +1,39 @@
+@import "variables";
+
+@mixin button-hover {
+	color: $color-white;
+	background-color: $secondary-color;
+	transition: color 0.1s ease, background-color 0.1s ease;
+}
+
+@mixin button {
+	display: inline-block;
+	padding: 6px 16px;
+	border: 2px solid $color-black;
+	color: $color-black;
+	background-color: $primary-color;
+	text-align: center;
+	font-size: 1.2rem;
+	font-weight: 500;
+	&:hover {
+		@include button-hover;
+	}
+	a {
+		color: $color-white;
+	}
+}
+
+@mixin link-hover {
+	text-decoration: underline;
+	text-decoration-thickness: 0.1em;
+	text-underline-offset: 0.1em;
+}
+
+@mixin link {
+	display: inline-block;
+	padding: 0.5rem 1rem;
+	font-weight: 500;
+	&:hover {
+		@include link-hover;
+	}
+}

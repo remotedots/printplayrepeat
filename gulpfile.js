@@ -1,37 +1,50 @@
-var gulp = require('gulp'),
-		cleancss = require('gulp-clean-css'),
-		concat = require('gulp-concat'),
-		uglify = require('gulp-uglify'),
-		watch = require('gulp-watch'),
-		browserSync = require('browser-sync').create();
+import gulp from "gulp";
+import gulpSass from "gulp-sass";
+import nodeSass from "node-sass";
+import babel from "gulp-babel";
+import concat from "gulp-concat";
+import cleanCSS from "gulp-clean-css";
+import uglify from "gulp-uglify";
+import rename from "gulp-rename";
+import connect from "gulp-connect-php";
+import { deleteAsync } from "del";
+import webpack from "webpack-stream";
+import { webpackConfig } from "./webpack.config.js";
+import browserSync from "browser-sync";
 
-gulp.task('minify-css', function() {
-	return gulp.src('css/*.css')
-		.pipe(cleancss({compatibility: 'ie8'}))
-		.pipe(gulp.dest('dist'))
-		.pipe(browserSync.stream());
-});
+const sass = gulpSass(nodeSass);
 
-gulp.task('minify-js', function() {
-	return gulp.src('js/*.js')
-		.pipe(concat('script.js'))
-		.pipe(uglify())
-		.pipe(gulp.dest('dist'))
-		.pipe(browserSync.stream());
-});
+function css() {
+  return gulp
+    .src("scss/**/*.scss")
+    .pipe(sass())
+    .pipe(concat("style.css"))
+    .pipe(cleanCSS({ compatibility: "ie8" }))
+    .pipe(gulp.dest("css"));
+}
 
-gulp.task('browserSync', function() {
-	browserSync.init({
-		open:'external',
-		proxy: 'http://printplayrepeat.localhost',
-		port: 8080,
-	});
-});
+function js() {
+  // return gulp.src("src/js/*.js").pipe(webpack(webpackConfig)).pipe(uglify()).pipe(gulp.dest("dist/js"));
+}
 
-gulp.task('watch', function() {
-	gulp.watch('css/*.css', gulp.series('minify-css'));
-	gulp.watch('js/*.js', gulp.series('minify-js'));
-	gulp.watch('*.html').on('change', browserSync.reload);
-});
+function clean() {
+  return deleteAsync("css/");
+}
 
-gulp.task('default', gulp.parallel('browserSync', 'watch'));
+function watchdev() {
+  browserSync({
+    proxy: "printplayrepeat.localhost",
+    port: 8080,
+    open: true,
+    notify: true
+  });
+
+  gulp.watch("*/**/*.html").on("change", gulp.series(browserSync.reload));
+  gulp.watch("*/**/*.php").on("change", gulp.series(browserSync.reload));
+  gulp.watch("scss/**/*.scss").on("change", gulp.series("css", browserSync.reload));
+  gulp.watch("js/*.js").on("change", gulp.series("js", browserSync.reload));
+}
+
+const build = gulp.series(clean, gulp.parallel(css, js));
+
+export { clean, css, js, watchdev, build };

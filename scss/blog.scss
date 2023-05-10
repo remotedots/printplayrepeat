@@ -1,0 +1,128 @@
+@import "variables";
+@import "mixins";
+
+/* blog overview page */
+body.blog .site-content .site-main,
+body.archive .site-content .site-main,
+body.single .site-content .site-main .related-posts {
+	.posts-container {
+		max-width: 72ch;
+		margin: 0 auto;
+	}
+	.taxonomy-description {
+		margin: 0 auto 2rem;
+	}
+	.posts {
+		/**
+		 * margin-left and -right
+		 *   - are                     (container - content) / 2
+		 *   - need to be negative, so (container - content) / -2
+		 *   - but if the container is smaller than 1200px, then
+		 *                    (min(100vw, 1200px) - content) / -2
+		 *   - at small widths, the result gets positive, so we choose only the negative values
+		 *                   min((min(100vw, 1200px) - 72ch) / -2), -24px)
+		 *   - "-24px" and not "0" because of the container's padding
+		 *   - the topmost calc() is used because min(vh, px) throws an error in scss
+		 *            https://stackoverflow.com/questions/62280339/css-min-function-to-sass
+		 *   - alternatively, this can be done with 2 media queries
+		 */
+		margin: -2px calc(min(calc((min(100vw, 1200px) - 72ch) / -2), -26px));
+		border-top: 2px solid $color-black;
+		border-left: 2px solid $color-black;
+		display: flex;
+		flex-wrap: wrap;
+		.post {
+			flex: 0 0 calc(100% / 3);
+			padding: 24px;
+			@media (max-width: 1024px) {
+				flex: 0 0 calc(100% / 2);
+				padding: 18px;
+			}
+			@media (max-width: 640px) {
+				flex: 1 0 100%;
+			}
+			margin: 0;
+			border-right: 2px solid $color-black;
+			border-bottom: 2px solid $color-black;
+		}
+		.entry-header {
+			position: relative;
+			.post-thumbnail {
+				margin: 0;
+				a {
+					/* min-height needed in posts without thumbnail to align the post-category well */
+					min-height: 2rem;
+					display: block;
+				}
+			}
+			.post-categories {
+				display: block;
+				width: 100%;
+				position: absolute;
+				top: 0;
+				text-align: right;
+				.category {
+					padding: 3px 12px 4px;
+					color: $color-white;
+					background-color: $secondary-color;
+					display: inline-block;
+					font-size: 0.9rem;
+					font-weight: 600;
+					vertical-align: top;
+				}
+			}
+			.post-sticky {
+				display: inline-block;
+				position: absolute;
+				top: 0;
+				padding: 3px 12px 4px;
+				border: 2px solid $color-black;
+				background-color: $primary-color;
+				font-size: 0.9rem;
+				font-weight: 600;
+				text-align: left;
+			}
+			.posted-on {
+				margin: 24px 0 8px;
+				display: block;
+				font-size: 1rem;
+			}
+			.entry-title {
+				margin: 0 0 1rem 0;
+				line-height: 1;
+			}
+		}
+		.entry-content {
+			.more-link {
+				margin: 1rem 0 0;
+				display: inline-block;
+				font-size: 1rem;
+				font-weight: 500;
+				&:hover {
+					@include link-hover;
+				}
+			}
+		}
+		.entry-footer {
+			margin: 1rem 0 0;
+			.post-tags {
+				display: block;
+				.tag {
+					margin-right: 0.8ch;
+					display: inline-block;
+					a {
+						color: $secondary-color;
+						font-size: 1rem;
+						font-weight: 500;
+						&:before {
+							content: "#";
+						}
+						&:hover {
+							@include link-hover;
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,41 @@
+@import "variables";
+@import "mixins";
+
+.page-footer {
+	padding: 4rem 0 2rem;
+	margin-top: auto;
+	border-top: 2px solid $color-black;
+	background-color: $primary-color;
+	.content-wrapper {
+		max-width: 1200px;
+		margin: 0 auto;
+		@media (max-width: 1199.98px) {
+			margin: 0 2rem;
+		}
+		display: flex;
+		flex-wrap: wrap;
+		.site-branding {
+			flex: 1 0 30%;
+			@media (max-width: 767px) {
+				flex-basis: 100%;
+			}
+			a {
+				font-size: 2.8rem;
+			}
+		}
+		.menu-main-menu-container,
+		.menu-footer-menu-container {
+			flex: 1 0 auto;
+			margin-bottom: 2rem;
+			.menu {
+				.menu-item {
+					a {
+						color: currentColor;
+						@include link;
+						padding: 0.5rem 1rem 0.5rem 0;
+					}
+				}
+			}
+		}
+	}
+}
