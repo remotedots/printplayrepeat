@@ -2,35 +2,9 @@
 
 // Custom template tags for the theme.
 require get_template_directory() . '/inc/utils.php';
-
-/**
- * remove the product result count on the shop (products) page
- */
-function printplayrepeat_remove_product_result_count() {
-		remove_action( 'woocommerce_before_shop_loop' , 'woocommerce_result_count', 20 );
-		remove_action( 'woocommerce_after_shop_loop' , 'woocommerce_result_count', 20 );
-}
-add_action( 'after_setup_theme', 'printplayrepeat_remove_product_result_count', 99 );
+require get_template_directory() . '/inc/commerce.php';
 
 
-/**
- * woocommerce will use the commerce.php template for rendering
- *  - shop page
- *  - single product
- */
-function printplayrepeat_add_woocommerce_support() {
-	add_theme_support( 'woocommerce' );
-	add_theme_support( 'wc-product-gallery-zoom' );
-  // add_theme_support( 'wc-product-gallery-lightbox' );
-	add_theme_support( 'wc-product-gallery-slider' );
-}
-add_action( 'after_setup_theme', 'printplayrepeat_add_woocommerce_support' );
-
-
-/**
- * tell woocommerce to not use the default woocommerce.css
- */
-add_filter( 'woocommerce_enqueue_styles', '__return_false' );
 
 
 /**
@@ -48,7 +22,6 @@ function printplayrepeat_dequeue_plugin_style() {
  */
 function printplayrepeat_enqueue_style() {
 	wp_enqueue_style( 'style', get_template_directory_uri() . '/css/style.css', false, '1.0', 'all');
-	wp_enqueue_style( 'commerce', get_template_directory_uri() . '/css/commerce.css', false, '1.0', 'all');
 }
 add_action( 'wp_enqueue_scripts', 'printplayrepeat_enqueue_style' );
 
@@ -62,7 +35,7 @@ function get_related_posts() {
 	$orig_post = $post;
 	$tags      = wp_get_post_tags( $post->ID );
 
-	if ( $tags ) {
+	if ( $tags ) :
 		$tag_ids = array();
 
 		foreach ( $tags as $individual_tag ) {
@@ -78,25 +51,22 @@ function get_related_posts() {
 
 		$my_query = new wp_query( $args );
 
-		if ( $my_query->have_posts() ) {
+		if ( $my_query->have_posts() ) : ?>
+			<section class="related-posts posts-container">
+				<h2>Related Posts</h2>
+				<div class="posts">
 
-			echo '
-				<section class="related-posts">
-					<h2>Related Posts</h2>
-			';
+				<?php
+					while ( $my_query->have_posts() ) {
+						$my_query->the_post();
 
-			while ( $my_query->have_posts() ) {
-				$my_query->the_post();
-
-				get_template_part( 'components/related' );
-			}
-
-			echo '
-				</section>
-			';
-
-		}
-	}
+						get_template_part( 'components/content' );
+					}
+				?>
+				</div>
+			</section>
+		<?php endif;
+	endif;
 	$post = $orig_post;
 	wp_reset_query();
 }
