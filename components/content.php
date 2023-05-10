@@ -3,9 +3,12 @@
 
 		<?php ppr_post_thumbnail(); ?>
 
-		<?php if ( is_singular() ) : ?>
+		<?php if ( is_singular() && in_the_loop() ) : ?>
 			<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 		<?php else : ?>
+			<?php ppr_sticky(); ?>
+			<?php ppr_categories(); ?>
+			<?php ppr_posted_on(); ?>
 			<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
 		<?php endif; ?>
 

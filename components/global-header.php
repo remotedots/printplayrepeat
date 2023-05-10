@@ -55,6 +55,7 @@ $show_title       = ( true === get_theme_mod( 'display_title_and_tagline', true 
 				'menu_class'      => 'menu-wrapper',
 				'container_class' => 'main-menu-container',
 				'items_wrap'      => '<ul id="main-menu-list" class="%2$s">%3$s</ul>',
+				'item_spacing'    => 'discard'
 			)
 		);
 		?>
